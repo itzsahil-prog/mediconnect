@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MediConnect – Social Innovation Hub</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#e3f2fd">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:600,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #1976d2;
+      --accent: #00bfae;
+      --bg: #f5f8fa;
+      --card: #fff;
+      --shadow: 0 4px 24px #0001;
+      --danger: #e53935;
+      --success: #43a047;
+      --badge: #ffd600;
+    }
+    body {
+      font-family: 'Montserrat', Arial, sans-serif;
+      background: var(--bg);
+      margin: 0;
+      color: #222;
+      min-height: 100vh;
+    }
+    header {
+      background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+      color: #fff;
+      padding: 2rem 1rem 1.2rem 1rem;
+      text-align: center;
+      border-radius: 0 0 2rem 2rem;
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+    header h1 {
+      margin: 0 0 0.5rem 0;
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+    .slogan {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+    .nav {
+      display: flex;
+      justify-content: center;
+      gap: 1.2rem;
+      margin-bottom: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .nav button {
+      background: #fff;
+      color: var(--primary);
+      border: none;
+      border-radius: 1.2rem;
+      padding: 0.5rem 1.3rem;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 2px 8px #1976d222;
+      transition: background 0.2s, color 0.2s;
+    }
+    .nav button.active, .nav button:hover {
+      background: var(--primary);
+      color: #fff;
+    }
+    .container {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    .card {
+      background: var(--card);
+      border-radius: 1.2rem;
+      box-shadow: var(--shadow);
+      padding: 1.5rem 1.5rem 1.2rem 1.5rem;
+      margin-bottom: 2rem;
+      transition: background 0.3s, color 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .card .bounty {
+      background: var(--badge);
+      color: #222;
+      font-weight: 700;
+      border-radius: 1rem;
+      padding: 0.2em 0.9em;
+      font-size: 1rem;
+      margin-left: 0.7em;
+      vertical-align: middle;
+    }
+    .card .badge {
+      background: var(--success);
+      color: #fff;
+      font-weight: 700;
+      border-radius: 1rem;
+      padding: 0.2em 0.9em;
+      font-size: 0.95rem;
+      margin-left: 0.7em;
+      vertical-align: middle;
+    }
+    .feed-img {
+      width: 100%;
+      max-width: 320px;
+      border-radius: 1rem;
+      margin-bottom: 1em;
+      box-shadow: 0 2px 8px #1976d222;
+      display: block;
+    }
+    .feed-meta {
+      font-size: 0.98em;
+      color: #555;
+      margin-bottom: 0.5em;
+    }
+    .feed-actions {
+      display: flex;
+      gap: 1.2em;
+      align-items: center;
+      margin-top: 0.7em;
+    }
+    .feed-actions button, .feed-actions span.upvotes {
+      background: #e3f2fd;
+      color: var(--primary);
+      border: none;
+      border-radius: 1.2rem;
+      padding: 0.3em 1.1em;
+      font-size: 1em;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.2s, color 0.2s;
+      margin-right: 0.2em;
+    }
+    .feed-actions button:hover {
+      background: var(--primary);
+      color: #fff;
+    }
+    .feed-actions .upvoted {
+      background: var(--primary);
+      color: #fff;
+    }
+    .comment-section {
+      margin-top: 1.2em;
+      background: #f5f8fa;
+      border-radius: 0.7em;
+      padding: 1em;
+    }
+    .comment {
+      margin-bottom: 0.7em;
+      border-bottom: 1px solid #e3f2fd;
+      padding-bottom: 0.5em;
+    }
+    .comment:last-child { border-bottom: none; }
+    .comment-meta {
+      font-size: 0.92em;
+      color: #1976d2;
+      font-weight: 600;
+    }
+    .comment-body {
+      margin: 0.2em 0 0.2em 0;
+      font-size: 1em;
+    }
+    .comment-upvotes {
+      color: #1976d2;
+      font-size: 0.95em;
+      margin-left: 0.5em;
+      cursor: pointer;
+      user-select: none;
+    }
+    .comment-upvotes.upvoted {
+      color: #43a047;
+      font-weight: bold;
+    }
+    .comment-form {
+      display: flex;
+      gap: 0.5em;
+      margin-top: 0.7em;
+    }
+    .comment-form input, .comment-form textarea {
+      flex: 1;
+      border-radius: 0.7em;
+      border: 1px solid #b2dfdb;
+      padding: 0.5em;
+      font-size: 1em;
+    }
+    .comment-form button {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 1em;
+      padding: 0.5em 1.2em;
+      font-size: 1em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .comment-form button:hover {
+      background: var(--accent);
+    }
+    .profile-card {
+      display: flex;
+      align-items: center;
+      gap: 1.2em;
+      margin-bottom: 1.5em;
+    }
+    .profile-avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--primary);
+      background: #fff;
+    }
+    .profile-info {
+      flex: 1;
+    }
+    .profile-info h2 {
+      margin: 0 0 0.2em 0;
+      font-size: 1.3em;
+      color: var(--primary);
+    }
+    .profile-info .role {
+      font-size: 1em;
+      color: #555;
+      font-weight: 500;
+    }
+    .profile-badges {
+      margin-top: 0.5em;
+    }
+    .profile-badges span {
+      background: var(--badge);
+      color: #222;
+      border-radius: 1em;
+      padding: 0.2em 0.8em;
+      font-size: 0.95em;
+      margin-right: 0.5em;
+      font-weight: 600;
+    }
+    .resume-section {
+      background: #f5f8fa;
+      border-radius: 1em;
+      padding: 1em;
+      margin-bottom: 1.5em;
+    }
+    .resume-section h3 {
+      margin-top: 0;
+      color: #1976d2;
+      font-size: 1.1em;
+    }
+    .resume-list {
+      margin: 0.5em 0 0 1em;
+      padding: 0;
+      font-size: 1em;
+    }
+    .resume-list li {
+      margin-bottom: 0.3em;
+    }
+    .modal-bg {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: #0007;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal {
+      background: #fff;
+      border-radius: 1.2rem;
+      box-shadow: 0 4px 24px #0003;
+      padding: 2.2rem 2rem;
+      max-width: 420px;
+      width: 95%;
+      position: relative;
+      animation: fadeIn 0.2s;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(40px);}
+      to { opacity: 1; transform: none;}
+    }
+    .modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #1976d2;
+    }
+    .modal input, .modal select, .modal textarea {
+      width: 100%;
+      border-radius: 0.7em;
+      border: 1px solid #b2dfdb;
+      padding: 0.7em;
+      font-size: 1em;
+      margin-bottom: 1em;
+    }
+    .modal label { font-weight: 600; color: #1976d2;}
+    .modal button {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 1em;
+      padding: 0.7em 1.5em;
+      font-size: 1em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 0.5em;
+    }
+    .modal button:hover {
+      background: var(--accent);
+    }
+    .poll-bar-bg {
+      background: #e3f2fd;
+      border-radius: 1em;
+      height: 1.2em;
+      width: 100%;
+      margin-bottom: 0.5em;
+      overflow: hidden;
+    }
+    .poll-bar {
+      background: var(--primary);
+      height: 100%;
+      border-radius: 1em;
+      transition: width 0.5s;
+      color: #fff;
+      font-size: 0.95em;
+      text-align: right;
+      padding-right: 0.5em;
+      line-height: 1.2em;
+    }
+    .dm-btn {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 1em;
+      padding: 0.4em 1.2em;
+      font-size: 1em;
+      font-weight: 600;
+      cursor: pointer;
+      margin-left: 0.5em;
+      transition: background 0.2s;
+    }
+    .dm-btn:hover { background: #1976d2; }
+    .footer {
+      background: #e3f2fd;
+      color: #1976d2;
+      text-align: center;
+      padding: 1.2rem 0;
+      border-radius: 0 0 1.2rem 1.2rem;
+      font-size: 0.98rem;
+      margin-top:2rem;
+    }
+    .leaderboard-list {
+      list-style: none;
+      padding: 0;
+      margin: 0.5em 0 0 0;
+    }
+    .leaderboard-list li {
+      background: #e3f2fd;
+      margin-bottom: 0.5em;
+      border-radius: 1em;
+      padding: 0.5em 1em;
+      font-weight: 600;
+      color: #1976d2;
+      display: flex;
+      align-items: center;
+      gap: 0.7em;
+    }
+    .leaderboard-list li .badge {
+      background: var(--badge);
+      color: #222;
+      font-size: 0.9em;
+      margin-left: auto;
+      padding: 0.2em 0.7em;
+    }
+    .tag-list {
+      display: inline-block;
+      margin-left: 0.5em;
+    }
+    .tag {
+      background: #b2dfdb;
+      color: #1976d2;
+      border-radius: 1em;
+      padding: 0.2em 0.7em;
+      font-size: 0.9em;
+      margin-right: 0.3em;
+      display: inline-block;
+    }
+    .severity-badge {
+      background: #e53935;
+      color: #fff;
+      border-radius: 1em;
+      padding: 0.2em 0.7em;
+      font-size: 0.95em;
+      margin-left: 0.5em;
+      font-weight: 600;
+      display: inline-block;
+    }
+    .prototype-link {
+      display: inline-block;
+      background: #1976d2;
+      color: #fff;
+      border-radius: 1em;
+      padding: 0.2em 0.9em;
+      margin: 0.2em 0.2em 0.2em 0;
+      text-decoration: none;
+      font-size: 0.95em;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+    .prototype-link:hover {
+      background: #00bfae;
+    }
+    .mentor-badge {
+      background: #ffd600;
+      color: #222;
+      border-radius: 1em;
+      padding: 0.2em 0.7em;
+      font-size: 0.95em;
+      margin-left: 0.5em;
+      font-weight: 600;
+      display: inline-block;
+    }
+    .version-list {
+      margin: 0.5em 0 0 1em;
+      padding: 0;
+      font-size: 1em;
+    }
+    .version-list li {
+      margin-bottom: 0.3em;
+    }
+    .wiki-section {
+      background: #f5f8fa;
+      border-radius: 1em;
+      padding: 1em;
+      margin-bottom: 1.5em;
+    }
+    .wiki-section h3 {
+      margin-top: 0;
+      color: #1976d2;
+      font-size: 1.1em;
+    }
+    .wiki-list {
+      margin: 0.5em 0 0 1em;
+      padding: 0;
+      font-size: 1em;
+    }
+    .wiki-list li {
+      margin-bottom: 0.3em;
+    }
+    @media (max-width: 700px) {
+      .container { padding: 0 0.2rem; }
+      .card { padding: 1rem; }
+      header h1 { font-size: 1.3rem;}
+      .profile-card { flex-direction: column; align-items: flex-start;}
+      .profile-avatar { margin-bottom: 0.7em;}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>MediConnect</h1>
+    <div class="slogan">Fixing Diagnosis Together — One Tool at a Time.</div>
+    <div class="nav">
+      <button class="active" onclick="showPage('feed')">Feed</button>
+      <button onclick="showPage('post')">Post Issue</button>
+      <button onclick="showPage('polls')">Polls</button>
+      <button onclick="showPage('trending')">Trending</button>
+      <button onclick="showPage('leaderboard')">Leaderboard</button>
+      <button onclick="showPage('wiki')">Device Wiki</button>
+      <button onclick="showPage('profile')">Profile</button>
+      <button onclick="showPage('messages')">Messages</button>
+      <button onclick="showPlans()">See Plans</button>
+    </div>
+  </header>
+  <div class="container">
+    <!-- FEED PAGE -->
+    <div id="feedPage">
+      <div id="feed"></div>
+    </div>
+    <!-- POST PAGE -->
+    <div id="postPage" style="display:none;">
+      <div class="card">
+        <h2>Post a Tool Issue / Innovation</h2>
+        <form id="postForm">
+          <label>Role</label>
+          <select id="postRole" required>
+            <option value="">Select</option>
+            <option>Doctor</option>
+            <option>Hospital</option>
+            <option>Engineer</option>
+            <option>Startup</option>
+          </select>
+          <label>Device Type</label>
+          <select id="postDevice" required>
+            <option value="">Select</option>
+            <option>ECG</option>
+            <option>BP Machine</option>
+            <option>Stethoscope</option>
+            <option>X-ray</option>
+            <option>Imaging Software</option>
+            <option>Other</option>
+          </select>
+          <label>Title</label>
+          <input type="text" id="postTitle" maxlength="80" required>
+          <label>Description</label>
+          <textarea id="postDesc" rows="3" maxlength="400" required></textarea>
+          <label>Photo/Video (optional)</label>
+          <input type="file" id="postMedia" accept="image/*,video/*">
+          <label>Bounty/Reward (optional)</label>
+          <input type="text" id="postBounty" placeholder="e.g. ₹5000">
+          <label>Severity</label>
+          <input type="range" min="1" max="5" id="severity" value="3">
+          <span id="severityLabel">Moderate</span>
+          <label><input type="checkbox" id="anonymize"> This device is from a real patient area (anonymize if checked)</label>
+          <button type="submit">Post</button>
+        </form>
+        <div id="autoTags" style="margin-top:0.7em;"></div>
+      </div>
+    </div>
+    <!-- POLLS PAGE -->
+    <div id="pollsPage" style="display:none;">
+      <div class="card">
+        <h2>Device Issue Polls</h2>
+        <form id="pollForm">
+          <label>Poll Question</label>
+          <input type="text" id="pollQ" maxlength="100" required>
+          <label>Options (comma separated)</label>
+          <input type="text" id="pollOpts" placeholder="Option1, Option2, Option3" required>
+          <button type="submit">Create Poll</button>
+        </form>
+      </div>
+      <div id="pollList"></div>
+    </div>
+    <!-- TRENDING PAGE -->
+    <div id="trendingPage" style="display:none;">
+      <div class="card">
+        <h2>Trending Issues</h2>
+        <ul id="trendingList" class="leaderboard-list"></ul>
+      </div>
+    </div>
+    <!-- LEADERBOARD PAGE -->
+    <div id="leaderboardPage" style="display:none;">
+      <div class="card">
+        <h2>Top Contributors</h2>
+        <ul id="leaderboardList" class="leaderboard-list"></ul>
+      </div>
+    </div>
+    <!-- WIKI PAGE -->
+    <div id="wikiPage" style="display:none;">
+      <div class="wiki-section">
+        <h3>Medical Device Registry / Wiki</h3>
+        <form id="wikiForm">
+          <input type="text" id="wikiDevice" placeholder="Device Name" required>
+          <input type="text" id="wikiIssue" placeholder="Common Issue" required>
+          <input type="text" id="wikiFix" placeholder="Known Fix" required>
+          <button type="submit">Add Entry</button>
+        </form>
+        <ul id="wikiList" class="wiki-list"></ul>
+      </div>
+    </div>
+    <!-- PROFILE PAGE -->
+    <div id="profilePage" style="display:none;">
+      <div class="card profile-card">
+        <img id="profileAvatar" class="profile-avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=mediconnect" alt="Avatar">
+        <div class="profile-info">
+          <h2 id="profileName">Your Name</h2>
+          <div class="role" id="profileRole">Role: -</div>
+          <div class="profile-badges" id="profileBadges"></div>
+        </div>
+      </div>
+      <div class="resume-section">
+        <h3>Mini Resume</h3>
+        <form id="resumeForm">
+          <input type="text" id="resumeProjects" placeholder="Past Projects (comma separated)">
+          <input type="text" id="resumePatents" placeholder="Patents/Publications (comma separated)">
+          <input type="text" id="resumeSkills" placeholder="Skills (comma separated)">
+          <button type="submit">Save Resume</button>
+        </form>
+        <ul id="resumeList" class="resume-list"></ul>
+      </div>
+      <div class="card">
+        <h2>Edit Profile</h2>
+        <form id="profileForm">
+          <label>Name</label>
+          <input type="text" id="editName" maxlength="30" required>
+          <label>Role</label>
+          <select id="editRole" required>
+            <option value="">Select</option>
+            <option>Doctor</option>
+            <option>Hospital</option>
+            <option>Engineer</option>
+            <option>Startup</option>
+            <option>Mentor</option>
+          </select>
+          <label>Avatar</label>
+          <input type="file" id="editAvatar" accept="image/*">
+          <button type="submit">Save</button>
+        </form>
+      </div>
+    </div>
+    <!-- MESSAGES PAGE -->
+    <div id="messagesPage" style="display:none;">
+      <div class="card">
+        <h2>Private Messages</h2>
+        <div id="dmList"></div>
+        <div id="dmChat" style="display:none;">
+          <div id="dmChatWith" style="font-weight:600;margin-bottom:0.5em;"></div>
+          <div id="dmChatBox" style="background:#f5f8fa;border-radius:1em;padding:1em;height:180px;overflow-y:auto;margin-bottom:0.7em;"></div>
+          <form id="dmForm" style="display:flex;gap:0.5em;">
+            <input type="text" id="dmInput" placeholder="Type a message..." style="flex:1;">
+            <button type="submit" class="dm-btn">Send</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- PLANS MODAL -->
+  <div id="plansModal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:#0007;z-index:2000;align-items:center;justify-content:center;">
+    <div class="modal">
+      <button onclick="closePlans()" class="modal-close">&times;</button>
+      <h2 style="margin-top:0;color:#1976d2;">🌟 MediConnect Premium</h2>
+      <ul style="padding-left:1.2em;line-height:1.7;">
+        <li><b>Advanced Analytics</b> – See trends, top contributors, device stats</li>
+        <li><b>Premium Profile Badge</b> – Stand out in the community</li>
+        <li><b>Priority Messaging</b> – Message anyone, anytime</li>
+        <li><b>Challenge Management</b> – Create/manage paid bounties</li>
+        <li><b>Export Data</b> – Download your posts and comments</li>
+        <li><b>Custom Themes</b> – Choose your look</li>
+        <li><b>And more coming soon!</b></li>
+      </ul>
+      <button class="plan-btn premium" style="width:100%;margin-top:1.2em;" onclick="unlockPremium()">Unlock Premium</button>
+    </div>
+  </div>
+  <div class="footer">
+    &copy; 2025 MediConnect. Social Innovation Hub for Healthcare.<br>
+    <span style="font-size:0.95em;">"Fixing Diagnosis Together — One Tool at a Time."</span>
+  </div>
+  <script>
+    // --- Navigation ---
+    function showPage(page) {
+      ['feed','post','polls','profile','messages','trending','leaderboard','wiki'].forEach(p=>{
+        document.getElementById(p+'Page').style.display = (p===page) ? '' : 'none';
+        document.querySelectorAll('.nav button').forEach(btn=>{
+          if(btn.textContent.toLowerCase().includes(page)) btn.classList.add('active');
+          else btn.classList.remove('active');
+        });
+      });
+      if(page==='feed') renderFeed();
+      if(page==='polls') renderPolls();
+      if(page==='profile') { renderProfile(); renderResume(); }
+      if(page==='messages') renderDMList();
+      if(page==='trending') renderTrending();
+      if(page==='leaderboard') renderLeaderboard();
+      if(page==='wiki') renderWiki();
+    }
+
+    // --- Device Issue Auto-Tagging (AI Support) ---
+    function autoTagIssue(text) {
+      const tags = [];
+      if (/x-?ray/i.test(text)) tags.push("X-ray");
+      if (/ecg/i.test(text)) tags.push("ECG");
+      if (/bp|blood pressure/i.test(text)) tags.push("BP Machine");
+      if (/stethoscope/i.test(text)) tags.push("Stethoscope");
+      if (/imaging|software/i.test(text)) tags.push("Imaging Software");
+      if (/distort|ghost|blur/i.test(text)) tags.push("Image Distortion");
+      if (/rural|low resource|afford/i.test(text)) tags.push("Low Resource");
+      if (/connect|wifi|bluetooth/i.test(text)) tags.push("Connectivity");
+      if (/battery|power/i.test(text)) tags.push("Power Issue");
+      if (/sensor|probe/i.test(text)) tags.push("Sensor");
+      if (/display|screen/i.test(text)) tags.push("Display");
+      return tags;
+    }
+
+    // --- Profile ---
+    function renderProfile() {
+      let profile = JSON.parse(localStorage.getItem('mc_profile')||'{}');
+      document.getElementById('profileName').textContent = profile.name||'Your Name';
+      document.getElementById('profileRole').textContent = 'Role: ' + (profile.role||'-');
+      document.getElementById('profileAvatar').src = profile.avatar||'https://api.dicebear.com/7.x/bottts/svg?seed=mediconnect';
+      document.getElementById('editName').value = profile.name||'';
+      document.getElementById('editRole').value = profile.role||'';
+      document.getElementById('profileBadges').innerHTML = isPremium() ? '<span>Premium</span>' : '';
+      if(profile.role==="Mentor") document.getElementById('profileBadges').innerHTML += '<span class="mentor-badge">Verified Mentor</span>';
+    }
+    document.getElementById('profileForm').onsubmit = function(e){
+      e.preventDefault();
+      let name = document.getElementById('editName').value.trim();
+      let role = document.getElementById('editRole').value;
+      let profile = JSON.parse(localStorage.getItem('mc_profile')||'{}');
+      profile.name = name; profile.role = role;
+      let file = document.getElementById('editAvatar').files[0];
+      if(file){
+        let reader = new FileReader();
+        reader.onload = function(evt){
+          profile.avatar = evt.target.result;
+          localStorage.setItem('mc_profile', JSON.stringify(profile));
+          renderProfile();
+        };
+        reader.readAsDataURL(file);
+      } else {
+        localStorage.setItem('mc_profile', JSON.stringify(profile));
+        renderProfile();
+      }
+    };
+    renderProfile();
+
+    // --- Mini Resume/Profile Builder ---
+    function renderResume() {
+      let resume = JSON.parse(localStorage.getItem('mc_resume')||'{}');
+      let html = '';
+      if(resume.projects) html += `<li><b>Projects:</b> ${resume.projects.join(', ')}</li>`;
+      if(resume.patents) html += `<li><b>Patents/Publications:</b> ${resume.patents.join(', ')}</li>`;
+      if(resume.skills) html += `<li><b>Skills:</b> ${resume.skills.join(', ')}</li>`;
+      document.getElementById('resumeList').innerHTML = html || '<li>No resume info yet.</li>';
+    }
+    document.getElementById('resumeForm').onsubmit = function(e){
+      e.preventDefault();
+      let projects = document.getElementById('resumeProjects').value.split(',').map(s=>s.trim()).filter(Boolean);
+      let patents = document.getElementById('resumePatents').value.split(',').map(s=>s.trim()).filter(Boolean);
+      let skills = document.getElementById('resumeSkills').value.split(',').map(s=>s.trim()).filter(Boolean);
+      let resume = {projects, patents, skills};
+      localStorage.setItem('mc_resume', JSON.stringify(resume));
+      renderResume();
+      this.reset();
+    };
+    renderResume();
+
+    // --- Feed ---
+    function renderFeed() {
+      let posts = JSON.parse(localStorage.getItem('mc_posts')||'[]');
+      let html = '';
+      posts.reverse().forEach((post, idx) => {
+        let tags = post.tags||[];
+        let severityLabels = ["Low", "Mild", "Moderate", "High", "Critical"];
+        let severity = post.severity||3;
+        html += `<div class="card">
+          <div class="feed-meta">
+            <b>${post.title}</b> <span style="color:#1976d2;">[${post.device}]</span>
+            <span class="badge">${post.role}</span>
+            ${post.bounty?`<span class="bounty">Bounty: ${post.bounty}</span>`:""}
+            <span class="severity-badge">${severityLabels[severity-1]}</span>
+            <span class="tag-list">${tags.map(t=>`<span class="tag">${t}</span>`).join('')}</span>
+          </div>
+          ${post.media?`<img src="${post.media}" class="feed-img" alt="media">`:""}
+          <div style="margin-bottom:0.7em;">${post.desc}</div>
+          <div class="feed-actions">
+            <button onclick="upvotePost(${posts.length-1-idx})" ${post.upvoted?'class="upvoted"':''}>▲ Upvote</button>
+            <span class="upvotes">${post.upvotes||0} Upvotes</span>
+            <button onclick="showComments(${posts.length-1-idx})">💬 ${post.comments?post.comments.length:0} Comments</button>
+            <button onclick="dmUser('${post.author||'Anonymous'}')">DM</button>
+          </div>
+          <div id="comments${posts.length-1-idx}" style="display:none;"></div>
+        </div>`;
+      });
+      document.getElementById('feed').innerHTML = html || '<div class="card">No posts yet. Be the first to post an issue or innovation!</div>';
+    }
+    renderFeed();
+
+    // --- Post Issue ---
+    document.getElementById('postDesc').oninput = function() {
+      let tags = autoTagIssue(this.value);
+      document.getElementById('autoTags').innerHTML = tags.length ? 'Suggested tags: ' + tags.map(t=>`<span class="tag">${t}</span>`).join('') : '';
+    };
+    document.getElementById('severity').oninput = function() {
+      const labels = ["Low", "Mild", "Moderate", "High", "Critical"];
+      document.getElementById('severityLabel').textContent = labels[this.value-1];
+    };
+    document.getElementById('postForm').onsubmit = function(e){
+      e.preventDefault();
+      let role = document.getElementById('postRole').value;
+      let device = document.getElementById('postDevice').value;
+      let title = document.getElementById('postTitle').value.trim();
+      let desc = document.getElementById('postDesc').value.trim();
+      let bounty = document.getElementById('postBounty').value.trim();
+      let author = (JSON.parse(localStorage.getItem('mc_profile')||'{}').name)||'Anonymous';
+      let file = document.getElementById('postMedia').files[0];
+      let severity = parseInt(document.getElementById('severity').value);
+      let tags = autoTagIssue(desc);
+      let anonymize = document.getElementById('anonymize').checked;
+      let posts = JSON.parse(localStorage.getItem('mc_posts')||'[]');
+      function save(mediaUrl) {
+        posts.push({role, device, title, desc, bounty, media:mediaUrl, upvotes:0, upvoted:false, comments:[], author, tags, severity, anonymize});
+        localStorage.setItem('mc_posts', JSON.stringify(posts));
+        showPage('feed');
+      }
+      if(file){
+        let reader = new FileReader();
+        reader.onload = function(evt){
+          save(evt.target.result);
+        };
+        reader.readAsDataURL(file);
+      } else {
+        save('');
+      }
+      this.reset();
+      document.getElementById('autoTags').innerHTML = '';
+      document.getElementById('severityLabel').textContent = 'Moderate';
+    };
+
+    // --- Upvote Post ---
+    function upvotePost(idx) {
+      let posts = JSON.parse(localStorage.getItem('mc_posts')||'[]');
+      if(!posts[idx].upvoted) {
+        posts[idx].upvotes = (posts[idx].upvotes||0)+1;
+        posts[idx].upvoted = true;
+      } else {
+        posts[idx].upvotes = (posts[idx].upvotes||1)-1;
+        posts[idx].upvoted = false;
+      }
+      localStorage.setItem('mc_posts', JSON.stringify(posts));
+      renderFeed();
+    }
+
+    // --- Comments, Prototype Showcase, Versioning, Mentorship ---
+    function showComments(idx) {
+      let posts = JSON.parse(localStorage.getItem('mc_posts')||'[]');
+      let post = posts[idx];
+      let html = `<div class="comment-section">`;
+      (post.comments||[]).forEach((c,i)=>{
+        html += `<div class="comment">
+          <span class="comment-meta">${c.author||'Anonymous'}${c.mentor?' <span class="mentor-badge">Mentor</span>':''}${c.badge?` <span class="badge">${c.badge}</span>`:""}</span>
+          <div class="comment-body">${c.text}</div>
+          ${c.prototype?`<div><a href="${c.prototype}" target="_blank" class="prototype-link">Prototype/GitHub</a></div>`:""}
+          ${c.versions?`<ul class="version-list">${c.versions.map((v,vi)=>`<li>v${vi+1}: ${v}</li>`).join('')}</ul>`:""}
+          <span class="comment-upvotes${c.upvoted?' upvoted':''}" onclick="upvoteComment(${idx},${i})">▲ ${c.upvotes||0}</span>
+        </div>`;
+      });
+      html += `<form class="comment-form" onsubmit="return addComment(${idx},this)">
+        <input type="text" placeholder="Your solution or comment..." required maxlength="200">
+        <input type="url" placeholder="Prototype/GitHub URL (optional)">
+        <input type="text" placeholder="Version notes (optional)">
+        <label style="font-size:0.95em;"><input type="checkbox" name="mentor"> I am a Mentor</label>
+        <button type="submit">Post</button>
+      </form></div>`;
+      document.getElementById('comments'+idx).innerHTML = html;
+      document.getElementById('comments'+idx).style.display = '';
+    }
+    function addComment(idx, form) {
+      let posts = JSON.parse(localStorage.getItem('mc_posts')||'[]');
+      let text = form.querySelector('input[type=text]').value.trim();
+      let prototype = form.querySelector('input[type=url]').value.trim();
+      let versionNote = form.querySelectorAll('input[type=text]')[1].value.trim();
+      let isMentor = form.querySelector('input[name=mentor]').checked;
+      let profile = JSON.parse(localStorage.getItem('mc_profile')||'{}');
+      let badge = isPremium() ? 'Premium' : '';
+      if(!posts[idx].comments) posts[idx].comments = [];
+      let comment = {text, author:profile.name||'Anonymous', badge, upvotes:0, upvoted:false, mentor:isMentor};
+      if(prototype) comment.prototype = prototype;
+      if(versionNote) comment.versions = [versionNote];
+      posts[idx].comments.push(comment);
+      localStorage.setItem('mc_posts', JSON.stringify(posts));
+      showComments(idx);
+      form.reset();
+      return false;
+    }
+    function upvoteComment(postIdx, cIdx) {
+      let posts = JSON.parse(localStorage.getItem('mc_posts')||'[]');
+      let c = posts[postIdx].comments[cIdx];
+      if(!c.upvoted) {
+        c.upvotes = (c.upvotes||0)+1;
+        c.upvoted = true;
+      } else {
+        c.upvotes = (c.upvotes||1)-1;
+        c.upvoted = false;
+      }
+      localStorage.setItem('mc_posts', JSON.stringify(posts));
+      showComments(postIdx);
+    }
+
+    // --- Polls ---
+    document.getElementById('pollForm').onsubmit = function(e){
+      e.preventDefault();
+      let q = document.getElementById('pollQ').value.trim();
+      let opts = document.getElementById('pollOpts').value.split(',').map(s=>s.trim()).filter(Boolean);
+      if(opts.length<2) return alert("At least 2 options required.");
+      let polls = JSON.parse(localStorage.getItem('mc_polls')||'[]');
+      polls.push({q, opts, votes:Array(opts.length).fill(0)});
+      localStorage.setItem('mc_polls', JSON.stringify(polls));
+      renderPolls();
+      this.reset();
+    };
+    function renderPolls() {
+      let polls = JSON.parse(localStorage.getItem('mc_polls')||'[]');
+      let html = '';
+      polls.reverse().forEach((poll, idx)=>{
+        html += `<div class="card"><b>${poll.q}</b>`;
+        poll.opts.forEach((opt,i)=>{
+          let total = poll.votes.reduce((a,b)=>a+b,0)||1;
+          let percent = Math.round((poll.votes[i]/total)*100);
+          html += `<div class="poll-bar-bg" onclick="votePoll(${polls.length-1-idx},${i})" style="cursor:pointer;">
+            <div class="poll-bar" style="width:${percent}%">${opt} (${poll.votes[i]})</div>
+          </div>`;
+        });
+        html += `</div>`;
+      });
+      document.getElementById('pollList').innerHTML = html || '<div class="card">No polls yet.</div>';
+    }
+    renderPolls();
+    function votePoll(idx, optIdx) {
+      let polls = JSON.parse(localStorage.getItem('mc_polls')||'[]');
+      polls[idx].votes[optIdx]++;
+      localStorage.setItem('mc_polls', JSON.stringify(polls));
+      renderPolls();
+    }
+
+    // --- DM/Private Messaging (local, demo) ---
+    function renderDMList() {
+      let dms = JSON.parse(localStorage.getItem('mc_dms')||'{}');
+      let html = '';
+      Object.keys(dms).forEach(user=>{
+        html += `<div style="margin-bottom:0.7em;">
+          <b>${user}</b>
+          <button class="dm-btn" onclick="openDM('${user}')">Open Chat</button>
+        </div>`;
+      });
+      document.getElementById('dmList').innerHTML = html || 'No messages yet.';
+      document.getElementById('dmChat').style.display = 'none';
+    }
+    function dmUser(user) {
+      if(!user || user==='Anonymous') return alert("User not available for DM.");
+      showPage('messages');
+      openDM(user);
+    }
+    function openDM(user) {
+      let dms = JSON.parse(localStorage.getItem('mc_dms')||'{}');
+      document.getElementById('dmChatWith').textContent = "Chat with " + user;
+      let chat = dms[user]||[];
+      let html = '';
+      chat.forEach(msg=>{
+        html += `<div style="margin-bottom:0.4em;"><b>${msg.from}:</b> ${msg.text}</div>`;
+      });
+      document.getElementById('dmChatBox').innerHTML = html;
+      document.getElementById('dmChat').style.display = '';
+      document.getElementById('dmForm').onsubmit = function(e){
+        e.preventDefault();
+        let text = document.getElementById('dmInput').value.trim();
+        if(!text) return;
+        let profile = JSON.parse(localStorage.getItem('mc_profile')||'{}');
+        if(!dms[user]) dms[user]=[];
+        dms[user].push({from:profile.name||'You', text});
+        localStorage.setItem('mc_dms', JSON.stringify(dms));
+        openDM(user);
+        this.reset();
+      };
+    }
+
+    // --- Premium/Plans Modal ---
+    function showPlans() {
+      document.getElementById('plansModal').style.display = 'flex';
+    }
+    function closePlans() {
+      document.getElementById('plansModal').style.display = 'none';
+    }
+    function unlockPremium() {
+      localStorage.setItem('mc_premium','1');
+      alert("Premium unlocked! Enjoy your new features.");
+      closePlans();
+      renderProfile();
+    }
+    function isPremium() {
+      return localStorage.getItem('mc_premium')==="1";
+    }
+
+    // --- Trending Issues ---
+    function renderTrending() {
+      let posts = JSON.parse(localStorage.getItem('mc_posts')||'[]');
+      posts = posts.slice().sort((a,b)=>(b.upvotes||0)-(a.upvotes||0)).slice(0,5);
+      let html = '';
+      posts.forEach(post=>{
+        html += `<li>
+          <span>🔥</span> <b>${post.title}</b> <span style="color:#1976d2;">[${post.device}]</span>
+          <span class="badge">${post.upvotes||0} Upvotes</span>
+        </li>`;
+      });
+      document.getElementById('trendingList').innerHTML = html || '<li>No trending issues yet.</li>';
+    }
+
+    // --- Leaderboard ---
+    function renderLeaderboard() {
+      let posts = JSON.parse(localStorage.getItem('mc_posts')||'[]');
+      let users = {};
+      posts.forEach(post=>{
+        if(post.author) users[post.author] = (users[post.author]||0)+(post.upvotes||0);
+        (post.comments||[]).forEach(c=>{
+          if(c.author) users[c.author] = (users[c.author]||0)+(c.upvotes||0);
+        });
+      });
+      let arr = Object.entries(users).sort((a,b)=>b[1]-a[1]).slice(0,5);
+      let html = '';
+      arr.forEach(([user,score],i)=>{
+        html += `<li>
+          <span>${i===0?'🥇':i===1?'🥈':i===2?'🥉':'🏅'}</span> <b>${user}</b>
+          <span class="badge">${score} pts</span>
+        </li>`;
+      });
+      document.getElementById('leaderboardList').innerHTML = html || '<li>No contributors yet.</li>';
+    }
+
+    // --- Device Wiki ---
+    document.getElementById('wikiForm').onsubmit = function(e){
+      e.preventDefault();
+      let device = document.getElementById('wikiDevice').value.trim();
+      let issue = document.getElementById('wikiIssue').value.trim();
+      let fix = document.getElementById('wikiFix').value.trim();
+      let wiki = JSON.parse(localStorage.getItem('mc_wiki')||'[]');
+      wiki.push({device, issue, fix});
+      localStorage.setItem('mc_wiki', JSON.stringify(wiki));
+      renderWiki();
+      this.reset();
+    };
+    function renderWiki() {
+      let wiki = JSON.parse(localStorage.getItem('mc_wiki')||'[]');
+      let html = '';
+      wiki.forEach(entry=>{
+        html += `<li><b>${entry.device}</b>: <span style="color:#e53935;">${entry.issue}</span> <span style="color:#43a047;">${entry.fix}</span></li>`;
+      });
+      document.getElementById('wikiList').innerHTML = html || '<li>No entries yet.</li>';
+    }
+    renderWiki();
+
+    // --- Initial Page ---
+    showPage('feed');
+  </script>
+</body>
+</html>
