@@ -190,7 +190,7 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## Contact
 
-For support or business inquiries, please contact [team@mediconnect.com](mailto:itzsahilg1@gmail.com).
+For support or business inquiries, please contact [itzsahilg1@gmail.com](mailto:itzsahilg1@gmail.com).
 
 ---
 
